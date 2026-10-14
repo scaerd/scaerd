@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row">
+    <!-- Блок очереди от нейросети -->
+    <div class="col-12 mb-4">
+        <div class="card bg-warning text-dark p-3 text-center fw-bold card-food">
+            <h4 class="mb-2">📊 Ситуация в столовой сейчас</h4>
+            {% if queue %}
+                <p class="mb-1 fs-5">Людей в очереди: <span class="badge bg-dark">{{ queue[0] }} чел.</span></p>
+                <p class="mb-0 fs-5">Примерное время ожидания: <span class="badge bg-danger">~{{ queue[1] }} мин.</span></p>
+            {% else %}
+                <p class="mb-0 fs-5 text-muted">Данные об очереди загружаются...</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Витрина еды -->
+    <h3 class="mb-3 fw-bold text-secondary">🍕 Что есть в наличии:</h3>
+    
+    {# Исправлено: добавлен _id на первое место для распаковки 4 полей из базы данных #}
+    {% for _id, name, count, price in menu %}
+    <div class="col-md-6 col-lg-4 mb-3">
+        <div class="card card-food p-3">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <h5 class="fw-bold mb-1">{{ name }}</h5>
+                    <p class="text-muted mb-0">Цена: <strong>{{ price }} руб.</strong></p>
+                </div>
+                <div class="text-end">
+                    {% if count > 0 %}
+                        <span class="badge bg-success fs-6">В наличии: {{ count }} шт</span>
+                    {% else %}
+                        <span class="badge bg-danger fs-6">Закончилось</span>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

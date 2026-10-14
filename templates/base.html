@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Это описание увидят пользователи в результатах поиска Google -->
+    <meta name="description" content="Актуальное меню школьной столовой, цены и загруженность очереди в реальном времени. Узнай, что сегодня на обед!">
+    <meta name="keywords" content="школьная столовая, меню столовой, очередь в столовую, обед в школе">
+
+    <!-- Красивое название вкладки, которое индексирует Google -->
+    <title>Вкусно и вовремя | Цифровая столовая школы</title>
+
+    <!-- ИСПРАВЛЕНО: Рабочая ссылка на Bootstrap для красивой верстки и карточек -->
+    <link href="https://jsdelivr.net" rel="stylesheet">
+    
+    <style>
+        /* ИСПРАВЛЕНО: Подключение вашей собственной локальной картинки из папки static */
+        body {
+            background-image: url("{{ url_for('static', filename='images/bg.jpg') }}") !important; 
+            background-size: cover !important;       /* Растягивает картинку на весь экран */
+            background-position: center !important;   /* Центрирует изображение */
+            background-attachment: fixed !important;  /* Картинка не прокручивается при скролле */
+            background-repeat: no-repeat !important;  /* Запрещает картинке дублироваться плиткой */
+        }
+
+        /* Стиль для карточек еды (белый матовый фон, чтобы текст отлично читался поверх фона) */
+        .card-food {
+            background-color: rgba(255, 255, 255, 0.93) !important; 
+            border: none !important;
+            border-radius: 15px !important;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15) !important;
+            transition: transform 0.2s !important;
+        }
+        .card-food:hover {
+            transform: translateY(-5px) !important;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-dark bg-success mb-4 shadow-sm">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="/">🍏 Школьная Столовая</a>
+            <a class="btn btn-outline-light btn-sm" href="/admin">Вход для кассира</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>
